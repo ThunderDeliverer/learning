@@ -1,13 +1,11 @@
-pragma Solidity ^0.4.13;
+pragma solidity ^0.4.18;
 
 contract simplestToken{
     /* This creates an array with all balances */
     mapping (address => uint256) public balanceOf;
 
     /* Initializes contract with initial supply tokens to the creator of the contract */
-    function MyToken(
-        uint256 initialSupply
-        ) {
+    function simplestToken(uint256 initialSupply) {
         balanceOf[msg.sender] = initialSupply;              // Give the creator all initial tokens
     }
 
