@@ -19,7 +19,12 @@ contract simplestToken is owned{
     /* This creates an array with all balances */
     mapping (address => uint256) public balanceOf;
 
-    /* Initializes contract with initial supply tokens to the creator of the contract */
+    /*
+    *  @dev Initialization function..
+    *  @param initialSupply uint256 Initial supply of tokens stored at SC address.
+    *  @param initalOwnerSupply uint256 Initial amount of tokens allocated to owner's account.
+    *  @param initialBuyPrice uint256 Price of the token in Eth.
+    */
     function simplestToken(uint256 initialSupply, uint256 initalOwnerSupply, uint256 initialBuyPrice) public{
         balanceOf[this] = initialSupply;              // Give the creator all initial tokens
         balanceOf[msg.sender] = initalOwnerSupply;
@@ -60,6 +65,9 @@ contract simplestToken is owned{
       TokenTransfer(msg.sender, 0, _amount);
     }
 
+    /*
+    *  @dev Allows users to buy tokens for Ether. User sends Ether and SC calculates how many tokens to allocate the user based on the buyPrice.
+    */
     function buyToken() public payable{
       uint256 amount;
       amount = msg.value / buyPrice;
@@ -70,6 +78,9 @@ contract simplestToken is owned{
       TokenTransfer(msg.sender, this, amount);
     }
 
+    /*
+    *  @dev Lets owner retrieve Ether that is stored st SC addesss.
+    */
     function retrieveEther() public onlyOwner{
       if(!owner.send(this.balance)) revert();
     }
